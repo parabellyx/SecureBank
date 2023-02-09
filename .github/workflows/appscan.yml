@@ -3,6 +3,8 @@ run-name: AppScan demo
 on: 
   push:
     branches: ["master"]
+  workflow_dispatch:
+    
 jobs:
   init-actions:
     runs-on: ubuntu-latest
