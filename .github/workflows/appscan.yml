@@ -1,0 +1,9 @@
+name: AppScan pipe
+run-name: AppScan demo
+on: [push]
+jobs:
+  init-actions:
+    runs-on: ubuntu-lastest
+    steps:
+      - run: echo "initializing appscan"
+
