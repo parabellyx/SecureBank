@@ -68,3 +68,14 @@ jobs:
           ..\.sonar\scanner\dotnet-sonarscanner begin /k:"securebank" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
           dotnet build
           ..\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+      - name: Generate XML SBOM
+        uses: CycloneDX/gh-dotnet-generate-sbom@v1
+        with:
+          path: ./src/SecureBank.sln
+          github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload SBOM
+        uses: DependencyTrack/gh-upload-sbom@v1.0.0
+        with:
+          serverhostname: 'dt.managedbyparabellyx.com'
+          apikey: ${{ secrets.DEPENDENCYTRACK_APIKEY }}
+          project: ${{ secrets.DEPENDENCYTRACK_UUID}}
