@@ -53,5 +53,7 @@ jobs:
         uses: DependencyTrack/gh-upload-sbom@v1.0.0
         with:
           serverhostname: 'dt.managedbyparabellyx.com'
+          projectname: 'SecureBank'
+          projectversion: 'master'
           apikey: ${{ secrets.DEPENDENCYTRACK_APIKEY }}
-          project: ${{ secrets.DEPENDENCYTRACK_UUID}}
+
