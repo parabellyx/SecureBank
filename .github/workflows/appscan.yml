@@ -1,9 +1,18 @@
 name: AppScan pipe
 run-name: AppScan demo
-on: [push]
+on: 
+  push:
+    branches: ["master"]
 jobs:
   init-actions:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
     steps:
       - run: echo "initializing appscan"
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name: Restore dependencies
+        run: dotnet restore
 
