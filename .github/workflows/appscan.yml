@@ -52,7 +52,7 @@ jobs:
       - name: Upload SBOM
         shell: bash
         run: |
-          curl https://dt.managedbyparabellyx.com
+          curl -X "POST" "https://dt.managedbyparabellyx.com/api/v1/bom" -H "X-Api-Key: ${{ secrets.DEPENDENCYTRACK_APIKEY }}" -F "project=${{ secrets.DEPENDENCYTRACK_UUID }}" -F "bom=@bom.xml"
       # - name: Upload SBOM
       #   uses: DependencyTrack/gh-upload-sbom@v1.0.0
       #   with:
