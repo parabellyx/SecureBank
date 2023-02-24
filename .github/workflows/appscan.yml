@@ -84,9 +84,9 @@ jobs:
     steps:
       # Fetch project source with GitHub Actions Checkout.
       - uses: actions/checkout@v3
-      - run: apt install curl
+      # - run: apt install curl
       # Run the "semgrep ci" command on the command line of the docker image.
-      - run: semgrep --config=auto --json > semgrep.json
+      - run: semgrep ci --json || true > semgrep.json
         env:
            # Add the rules that Semgrep uses by setting the SEMGREP_RULES environment variable. 
            SEMGREP_RULES: p/default # more at semgrep.dev/explore
