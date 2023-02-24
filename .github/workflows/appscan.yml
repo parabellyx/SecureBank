@@ -52,11 +52,11 @@ on:
       # - name: Upload SBOM
       #   shell: bash
       #   run: |
-      #     curl -X "POST" "https://dt.managedbyparabellyx.com/api/v1/bom" -H "X-Api-Key: ${{ secrets.DEPENDENCYTRACK_APIKEY }}" -F "project=${{ secrets.DEPENDENCYTRACK_UUID }}" -F "bom=@bom.xml"
+      #     curl -X "POST" "https://${{ secrets.DTURL }}/api/v1/bom" -H "X-Api-Key: ${{ secrets.DEPENDENCYTRACK_APIKEY }}" -F "project=${{ secrets.DEPENDENCYTRACK_UUID }}" -F "bom=@bom.xml"
       # - name: Upload SBOM
       #   uses: DependencyTrack/gh-upload-sbom@v1.0.0
       #   with:
-      #     serverhostname: 'dt.managedbyparabellyx.com'
+      #     serverhostname: '${{ secrets.DTURL }}'
       #     projectname: 'SecureBank'
       #     projectversion: 'master'
       #     apikey: ${{ secrets.DEPENDENCYTRACK_APIKEY }}
@@ -91,4 +91,4 @@ jobs:
            SEMGREP_RULES: p/default # more at semgrep.dev/explore
       - shell: bash
         run: |
-          ls -al
+          cat semgrep.json
