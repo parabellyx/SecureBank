@@ -9,10 +9,10 @@ jobs:
     name: Build
     runs-on: windows-latest
     steps:
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.11
+      # - name: Set up JDK 11
+      #   uses: actions/setup-java@v1
+      #   with:
+      #     java-version: 1.11
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
@@ -44,15 +44,15 @@ jobs:
       #     ..\.sonar\scanner\dotnet-sonarscanner begin /k:"securebank" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
       #     dotnet build
       #    ..\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-      - name: Generate XML SBOM
-        uses: CycloneDX/gh-dotnet-generate-sbom@v1
-        with:
-          path: ./src/SecureBank.sln
-          github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload SBOM
-        shell: bash
-        run: |
-          curl -X "POST" "https://dt.managedbyparabellyx.com/api/v1/bom" -H "X-Api-Key: ${{ secrets.DEPENDENCYTRACK_APIKEY }}" -F "project=${{ secrets.DEPENDENCYTRACK_UUID }}" -F "bom=@bom.xml"
+      # - name: Generate XML SBOM
+      #   uses: CycloneDX/gh-dotnet-generate-sbom@v1
+      #   with:
+      #     path: ./src/SecureBank.sln
+      #     github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Upload SBOM
+      #   shell: bash
+      #   run: |
+      #     curl -X "POST" "https://dt.managedbyparabellyx.com/api/v1/bom" -H "X-Api-Key: ${{ secrets.DEPENDENCYTRACK_APIKEY }}" -F "project=${{ secrets.DEPENDENCYTRACK_UUID }}" -F "bom=@bom.xml"
       # - name: Upload SBOM
       #   uses: DependencyTrack/gh-upload-sbom@v1.0.0
       #   with:
@@ -60,4 +60,10 @@ jobs:
       #     projectname: 'SecureBank'
       #     projectversion: 'master'
       #     apikey: ${{ secrets.DEPENDENCYTRACK_APIKEY }}
+      - name: Semgrep scan
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          pip install semgrep
+          semgrep ci --json
 
