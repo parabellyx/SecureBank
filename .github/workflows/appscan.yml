@@ -50,7 +50,7 @@ jobs:
           path: ./src/SecureBank.sln
           github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Dropping artifact
-        uses: actions/upload-artifacts@v3
+        uses: actions/upload-artifact@v3
         with:
           name: securebank-artifact
           path: bom.sml
