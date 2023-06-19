@@ -53,7 +53,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: securebank-artifact
-          path: bom.sml
+          path: bom.xml
       # - name: Upload SBOM
       #   shell: bash
       #   run: |
